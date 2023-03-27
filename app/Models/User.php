@@ -15,6 +15,10 @@ class User extends Authenticatable
     protected $primaryKey = 'id';
     public $timestamps = false;
 
+    public function getAuthPassword(){
+        return $this->mdp;
+    }
+
     function cours(){
         return $this->belongsToMany(Cours::class, 'cours_users', 'id', 'id')
             ->withPivot('cours_users') && $this->hasMany(Cours::class, 'id');;
@@ -23,6 +27,8 @@ class User extends Authenticatable
     function formation(){
         return $this->belongsTo(Formation::class, 'fid');
     }
+
+    protected $attributes = [ 'type' => 'null' ];
 
     /**
      * The attributes that are mass assignable.

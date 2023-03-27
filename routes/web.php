@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', [AuthenticatedSessionController::class,'formLogin'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class,'login']);
+Route::get('/logout', [AuthenticatedSessionController::class,'logout'])->name('logout');;
+Route::get('/register', [UserController::class,'registerForm'])->name('register');;
+Route::post('/register', [UserController::class,'store']);
