@@ -21,6 +21,18 @@
             </form>
             @auth
                 @if(Auth::user()->type == "admin")
+                    <form action="{{route('user.edit', $user->id)}}" method="post">
+                        <input type="radio" id="not" name="type" value="null" {{ $user->type == "null" ? "checked" : null }}>
+                        <label for="not">Non vérifié</label><br>
+                        <input type="radio" id="admin" name="type" value="admin" {{ $user->type == "admin" ? "checked" : null }}>
+                        <label for="admin">Administrateur</label><br>
+                        <input type="radio" id="enseignant" name="type" value="enseignant" {{ $user->type == "enseignant" ? "checked" : null }}>
+                        <label for="enseignant">Enseignant</label><br>
+                        <input type="radio" id="etudiant" name="type" value="etudiant" {{ $user->type == "etudiant" ? "checked" : null }}>
+                        <label for="etudiant">Etudiant</label><br>
+                        <input type="submit" value="Modifier status">
+                        @csrf
+                    </form>
                     <form action="{{route('user.destroy', $user->id)}}" method="post">
                         @method('delete')
                         <input type="submit" value="Supprimer">

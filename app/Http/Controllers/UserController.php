@@ -17,6 +17,13 @@ class UserController extends Controller
         return view('userIndex', ['user' => $user]);
     }
 
+    function notVerified()
+    {
+        $users = User::where('type', '=','null')->get();
+
+        return view('userNotVerified', ['users' => $users]);
+    }
+
     function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);

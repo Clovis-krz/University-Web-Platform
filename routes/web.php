@@ -19,9 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+Route::get('/user/not-verified', [UserController::class, 'notVerified'])->name('user.notVerified');
 Route::get('/user/{id}', [UserController::class, 'index'])->name('user.index');
 Route::post('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
 Route::delete('/user/{id}', [UserController::class, 'delete'])->name('user.destroy');
+
+
 
 Route::get('/login', [AuthenticatedSessionController::class,'formLogin'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class,'login']);
