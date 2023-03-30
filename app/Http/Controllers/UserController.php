@@ -10,6 +10,51 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    function index($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('userIndex', ['user' => $user]);
+    }
+
+    function edit(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'nom' => 'string|max:50',
+            "prenom"    => "string|max:50",
+            "mdp"    => "string|confirmed",
+            "type" => "string",
+            ]);
+
+        if (Auth::user()->type == "admin") {
+            $user->type = $validated["type"];
+        }
+        if(isset($validated["nom"]))
+        {
+            $user->nom = $validated["nom"];
+        }
+        if (isset($validated["prenom"])) {
+            $user->prenom = $validated["prenom"];
+        }
+        if(isset($validated["mdp"]))
+        {
+            $user->mdp = Hash::make($validated['mdp']);
+        }
+        $user->save();
+        $request->session()->flash('etat', 'Utilisateur modifié !');
+        return redirect("/user/".$id);
+    }
+
+    function delete(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        $request->session()->flash('etat', 'Compte utilisateur supprimé !');
+        return redirect()->route('index');
+    }
+
     function registerForm()
     {
         return view('registerForm');
