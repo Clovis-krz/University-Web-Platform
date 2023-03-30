@@ -17,9 +17,15 @@
                     </ul>
                 </div>
             @endif
+            @guest
+                <a href="/">Accueil</a>
+                <a href="/login">Login</a>
+            @endguest
             @auth
                 <h3>Bonjour {{Auth::user()->login}}</h3>
-                <a href="/logout">logout</a>
+                <a href="/">Accueil</a>
+                <a href="/user/{{Auth::user()->id}}">Mon Profil</a>
+                <a href="/logout">Logout</a>
             @endauth
             
         </div>
