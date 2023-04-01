@@ -113,10 +113,13 @@ class UserController extends Controller
 
         $user->save();
 
-        Auth::login($user);
+        if(!Auth::user())
+        {
+            Auth::login($user);
+        }
 
         $request->session()->flash('etat', 'Utilisateur crée !');
 
-        return redirect("/");
+        return redirect("/user/". $user->id);
     }
 }

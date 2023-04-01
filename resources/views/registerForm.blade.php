@@ -3,7 +3,7 @@
 @section('title', 'Créer un compte')
 
 @section('content')
-    <h3>Création de votre compte</h3>
+    <h3>Création d'un compte</h3>
     <form action="{{route('register')}}" method="post">
         Nom: <input type="text" name="nom" value="{{old('nom')}}"><br>
         Prénom: <input type="text" name="prenom" value="{{old('prenom')}}"><br>
