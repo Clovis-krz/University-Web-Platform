@@ -13,10 +13,10 @@ class Formation extends Model
     public $timestamps = true;
 
     function user(){
-        return $this->hasMany(User::class, 'id');
+        return $this->hasMany(User::class, 'formation_id');
     }
 
     function cours(){
-        return $this->hasMany(Cours::class, 'id');
+        return $this->hasMany(Cours::class, 'formation_id');
     }
 }

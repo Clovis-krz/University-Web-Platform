@@ -20,8 +20,8 @@ class User extends Authenticatable
     }
 
     function cours(){
-        return $this->belongsToMany(Cours::class, 'cours_users', 'id', 'id')
-            ->withPivot('cours_users') && $this->hasMany(Cours::class, 'id');;
+        return $this->belongsToMany(Cours::class, 'cours_users', 'user_id', 'cours_id')
+            ->withPivot('cours_users') && $this->hasMany(Cours::class, 'user_id');;
     }
 
     function formation(){

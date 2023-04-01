@@ -13,6 +13,6 @@ class Planning extends Model
     public $timestamps = true;
 
     function cours(){
-        return $this->belongsTo(Cours::class, 'id');
+        return $this->belongsTo(Cours::class, 'cours_id');
     }
 }

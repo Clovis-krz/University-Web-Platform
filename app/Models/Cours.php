@@ -13,15 +13,15 @@ class Cours extends Model
     public $timestamps = true;
 
     function user(){
-        return $this->belongsToMany(User::class, 'cours_users', 'id', 'id')
-            ->withPivot('cours_users') && $this->belongsTo(User::class, 'id');
+        return $this->belongsToMany(User::class, 'cours_users', 'cours_id', 'user_id')
+            ->withPivot('cours_users') && $this->belongsTo(User::class, 'user_id');
     }
 
     function formation(){
-        return $this->belongsTo(Formation::class, 'id');
+        return $this->belongsTo(Formation::class, 'formation_id');
     }
 
     function planning(){
-        return $this->hasMany(Planning::class, 'id');
+        return $this->hasMany(Planning::class, 'cours_id');
     }
 }
