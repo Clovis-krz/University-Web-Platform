@@ -7,6 +7,9 @@
     @unless(empty($user))
             ID: {{$user->id}}<br>
             Login: {{$user->login}}<br>
+            @if($user->type == "etudiant")
+                Formation: {{$user->formation()->first()->intitule}}<br>
+            @endif
             <form action="{{route('user.edit', $user->id)}}" method="post">
                 Prénom: <input type="text" name="prenom" value="{{$user->prenom}}"><br>
                 Nom: <input type="text" name="nom" value="{{$user->nom}}"><br>

@@ -1,10 +1,10 @@
 @extends('master')
 
-@section('title', 'Utilisateurs non vérifiés')
+@section('title', 'Utilisateurs vérifiés')
 
 @section('content')
-    <p>Voici les utilisateurs non vérifiés :</p>
-    <a href="/user/list"><input type="submit" value="vérifiés"></a><br><br>
+    <p>Voici les utilisateurs vérifiés:</p>
+    <a href="/user/not-verified"><input type="submit" value="Non vérifiés"></a><br><br>
     @unless(empty($users))
             @foreach ($users as $user)
                 <tr>

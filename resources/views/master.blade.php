@@ -28,6 +28,7 @@
                 <a href="/user/{{Auth::user()->id}}">Mon Profil</a>
                 @if(Auth::user()->type == "admin")
                     <a href="/formation">Formations</a>
+                    <a href="/user/list">Utilisateurs</a>
                 @endif
                 <a href="/logout">Logout</a>
             @endauth

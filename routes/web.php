@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 
 //USERS
+Route::get('/user/list', [UserController::class, 'list'])->name('user.list');
 Route::get('/user/not-verified', [UserController::class, 'notVerified'])->name('user.notVerified');
 Route::get('/user/{id}', [UserController::class, 'index'])->name('user.index');
 Route::post('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');

@@ -18,6 +18,13 @@ class UserController extends Controller
         return view('userIndex', ['user' => $user]);
     }
 
+    function list()
+    {
+        $users = User::where('type', '!=','null')->get();
+
+        return view('userList', ['users' => $users]);
+    }
+
     function notVerified()
     {
         $users = User::where('type', '=','null')->get();
