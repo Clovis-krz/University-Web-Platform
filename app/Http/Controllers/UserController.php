@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Hash;
 use Auth;
 use App\Models\User;
+use App\Models\Formation;
 
 class UserController extends Controller
 {
@@ -84,7 +85,8 @@ class UserController extends Controller
             $validated2 = $request->validate([
                 "formation_id" => "integer"
                 ]);
-            $user->formation_id = $validated2['formation_id'];
+            $formation = Formation::findOrFail($validated2['formation_id']);
+            $user->formation()->associate($formation);
         }
         else
         {

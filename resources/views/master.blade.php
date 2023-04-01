@@ -20,11 +20,15 @@
             @guest
                 <a href="/">Accueil</a>
                 <a href="/login">Login</a>
+                <a href="/register">S'enregistrer</a>
             @endguest
             @auth
                 <h3>Bonjour {{Auth::user()->login}}</h3>
                 <a href="/">Accueil</a>
                 <a href="/user/{{Auth::user()->id}}">Mon Profil</a>
+                @if(Auth::user()->type == "admin")
+                    <a href="/formation">Formations</a>
+                @endif
                 <a href="/logout">Logout</a>
             @endauth
             

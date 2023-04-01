@@ -25,7 +25,7 @@ class User extends Authenticatable
     }
 
     function formation(){
-        return $this->belongsTo(Formation::class, 'fid');
+        return $this->belongsTo(Formation::class, 'formation_id');
     }
 
     protected $attributes = [ 'type' => 'null' ];
