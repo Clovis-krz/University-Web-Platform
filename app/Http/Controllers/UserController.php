@@ -72,7 +72,8 @@ class UserController extends Controller
 
     function registerForm()
     {
-        return view('registerForm');
+        $formations = Formation::get();
+        return view('registerForm', ['formations' => $formations]);
     }
     function store(Request $request)
     {

@@ -11,7 +11,11 @@
         Professeur ou Administrateur: 
         <label for="special"></label>
         <input type="checkbox" id="special" name="special"><br>
-        Formation (sauf si Professeur ou Administrateur): <input type="number" name="formation_id" value="{{old('formation_id')}}"><br>
+        Formation (sauf si Professeur ou Administrateur):<br>
+        @foreach($formations as $formation)
+            <input type="radio" id="{{$formation->id}}" name="formation_id" value="{{$formation->id}}">
+            <label for="{{$formation->id}}">{{$formation->intitule}}</label><br>
+        @endforeach
         Mot de passe: <input type="password" name="mdp"><br>
         Confirmation Mot de passe: <input type="password" name="mdp_confirmation"><br>
         <input type="submit" value="Créer le compte">
