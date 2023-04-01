@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FormationController;
 use App\Http\Controllers\AuthenticatedSessionController;
 
 /*
@@ -19,13 +20,22 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+
+//USERS
 Route::get('/user/not-verified', [UserController::class, 'notVerified'])->name('user.notVerified');
 Route::get('/user/{id}', [UserController::class, 'index'])->name('user.index');
 Route::post('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
 Route::delete('/user/{id}', [UserController::class, 'delete'])->name('user.destroy');
 
+//FORMATION
+Route::get('/formation', [FormationController::class, 'list'])->name('formation.index');
+Route::get('/formation/create', [FormationController::class, 'create'])->name('formation.create');
+Route::post('/formation', [FormationController::class, 'store'])->name('formation.store');
+Route::get('/formation/edit/{id}', [FormationController::class, 'edit'])->name('formation.edit');
+Route::put('/formation/update/{id}', [FormationController::class, 'update'])->name('formation.update');
+Route::delete('/formation/{id}', [FormationController::class, 'destroy'])->name('formation.destroy');
 
-
+//AUTHENTIFICATION
 Route::get('/login', [AuthenticatedSessionController::class,'formLogin'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class,'login']);
 Route::get('/logout', [AuthenticatedSessionController::class,'logout'])->name('logout');;
