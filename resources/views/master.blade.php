@@ -27,6 +27,7 @@
                 <a href="/">Accueil</a>
                 <a href="/user/{{Auth::user()->id}}">Mon Profil</a>
                 @if(Auth::user()->type == "admin")
+                    <a href="/cours/list">Cours</a>
                     <a href="/formation">Formations</a>
                     <a href="/user/list">Utilisateurs</a>
                 @endif
