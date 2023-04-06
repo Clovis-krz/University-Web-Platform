@@ -37,7 +37,12 @@ Route::get('/formation/edit/{id}', [FormationController::class, 'edit'])->name('
 Route::put('/formation/update/{id}', [FormationController::class, 'update'])->name('formation.update');
 Route::delete('/formation/{id}', [FormationController::class, 'destroy'])->name('formation.destroy');
 
-//COURS 
+//COURS
+Route::get('/cours/formation/my', [CoursController::class, 'my_formation'])->name('cours.formation.my');
+Route::get('/cours/iteach', [CoursController::class, 'i_teach'])->name('cours.iteach');
+Route::get('/cours/my', [CoursController::class, 'my'])->name('cours.my');
+Route::post('/cours/subscribe/{id}', [CoursController::class, 'subscribe'])->name('cours.subscribe');
+Route::post('/cours/unsubscribe/{id}', [CoursController::class, 'unsubscribe'])->name('cours.unsubscribe');
 Route::get('/cours/list', [CoursController::class, 'list'])->name('cours.list');
 Route::get('/cours/create', [CoursController::class, 'create'])->name('cours.create');
 Route::get('/cours/{id}', [CoursController::class, 'index'])->name('cours.index');

@@ -3,7 +3,7 @@
 @section('title', 'Compte administrateur')
 
 @section('content')
-    <p>Voci les informations du profil :</p>
+    <h3>Voci les informations du profil :</h3>
     @unless(empty($user))
             ID: {{$user->id}}<br>
             Login: {{$user->login}}<br>

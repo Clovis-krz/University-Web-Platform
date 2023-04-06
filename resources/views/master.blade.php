@@ -31,6 +31,13 @@
                     <a href="/formation">Formations</a>
                     <a href="/user/list">Utilisateurs</a>
                 @endif
+                @if(Auth::user()->type == "etudiant")
+                    <a href="/cours/my">Mes Cours</a>
+                    <a href="/cours/formation/my">Cours</a>
+                @endif
+                @if(Auth::user()->type == "enseignant")
+                    <a href="/cours/iteach">Mes Cours</a>
+                @endif
                 <a href="/logout">Logout</a>
             @endauth
             

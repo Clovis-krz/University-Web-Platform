@@ -14,7 +14,7 @@ class Cours extends Model
 
     function user(){
         return $this->belongsToMany(User::class, 'cours_users', 'cours_id', 'user_id')
-            ->withPivot('cours_users');
+            ->withPivot('cours_id');
     }
 
     function enseignant()

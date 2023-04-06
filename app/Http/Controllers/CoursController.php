@@ -15,9 +15,57 @@ class CoursController extends Controller
     function index($id)
     {
         $cours = Cours::findOrFail($id);
+        $user = Auth::user();
         $enseignants = User::where('type', '=','enseignant')->get();
         $formations = Formation::get();
-        return view('coursIndex', ['cours' => $cours, 'enseignants' => $enseignants, 'formations' => $formations]);
+        $is_sub = false;
+        if($user->type == 'etudiant')
+        {
+            foreach($user->cours as $user_cours)
+            {
+                if($user_cours->pivot->cours_id == $cours->id)
+                {
+                    $is_sub = true;
+                }
+            }
+                
+        }
+        return view('coursIndex', ['cours' => $cours, 'enseignants' => $enseignants, 'formations' => $formations, 'is_sub' => $is_sub]);
+    }
+
+    //COURSES LIST IN WHICH I AM SUBSCRIBED
+    function my()
+    {
+        $user = Auth::user();
+        $courses = Cours::get();
+        $my_courses = null;
+        foreach($courses as $course){
+            foreach($course->user as $c_user)
+            {
+                if($c_user->pivot->user_id == $user->id)
+                {
+                    $my_courses[$course->id] = $course;
+                } 
+            }
+            
+        }
+        return view('coursList', ['cours' => $my_courses]);
+    }
+
+    //COURSES LIST FROM MY FORMATION
+    function my_formation()
+    {
+        $user = Auth::user();
+        $cours = Cours::where('formation_id', '=', $user->formation_id)->get();
+        return view('coursList', ['cours' => $cours]);
+    }
+
+    //COURSES LIST I TEACH
+    function i_teach()
+    {
+        $user = Auth::user();
+        $cours = Cours::where('user_id', '=', $user->id)->get();
+        return view('coursList', ['cours' => $cours]);
     }
 
     function list()
@@ -31,6 +79,28 @@ class CoursController extends Controller
         $enseignants = User::where('type', '=','enseignant')->get();
         $formations = Formation::get();
         return view('coursForm', ['enseignants' => $enseignants, 'formations' => $formations]);
+    }
+
+    function subscribe(Request $request, $cours_id)
+    {
+        $user = Auth::user();
+        $cours = Cours::findOrFail($cours_id);
+        $cours->user()->attach($user);
+
+        $request->session()->flash('etat', 'Inscription au cours effectué !');
+
+        return redirect("/cours/".$cours->id);
+    }
+
+    function unsubscribe(Request $request, $cours_id)
+    {
+        $user = Auth::user();
+        $cours = Cours::findOrFail($cours_id);
+        $cours->user()->detach($user);
+
+        $request->session()->flash('etat', 'Désinscription au cours effectué !');
+
+        return redirect("/cours/".$cours->id);
     }
 
     function update(Request $request, $id)

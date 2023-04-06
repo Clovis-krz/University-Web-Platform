@@ -4,7 +4,7 @@
 
 @section('content')
     <h3>Liste des formations :</h3>
-    <a href="{{ route('formation.create') }}"role="button">Ajouter</a>
+    <a href="{{ route('formation.create') }}"><input type="submit" value="Ajouter"></a><br><br>
     @unless (empty($formations))
         <table>
             @foreach($formations as $formation)

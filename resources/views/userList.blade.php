@@ -3,7 +3,7 @@
 @section('title', 'Utilisateurs vérifiés')
 
 @section('content')
-    <p>Voici les utilisateurs vérifiés:</p>
+    <h3>Voici les utilisateurs vérifiés:</h3>
     <a href="/register"><input type="submit" value="Ajouter"></a><br><br>
     <a href="/user/not-verified"><input type="submit" value="Non vérifiés"></a><br><br>
     @unless(empty($users))

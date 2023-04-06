@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     function cours(){
         return $this->belongsToMany(Cours::class, 'cours_users', 'user_id', 'cours_id')
-            ->withPivot('cours_users');
+            ->withPivot('user_id');
     }
 
     function enseigne()
