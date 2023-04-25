@@ -8,10 +8,17 @@
         @if(Auth::user()->type == 'admin')
             <a href="/cours/create"><input type="submit" value="Ajouter"></a><br><br>
             <form action="{{route('cours.search')}}" method="post">
-                Rechercher par intitulé: <input type="text" name="field" value="{{old('field')}}"><br>
+                <h4>Rechercher par intitulé :</h4> <input type="text" name="field" value="{{old('field')}}"><br>
                 <input type="submit" value="Rechercher">
                 @csrf
             </form>
+            @if(isset($enseignants))
+                <h4>Filtrer par enseignant :</h4>
+                @foreach($enseignants as $enseignant)
+                    <td><a href="{{ route('cours.list.enseignant', $enseignant->id) }}"role="button">{{$enseignant->nom}} {{$enseignant->prenom}}</a></td><br>
+                @endforeach
+                <br>
+            @endif
         @endif
     @endauth
     @unless(empty($cours))

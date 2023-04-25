@@ -48,6 +48,7 @@ Route::middleware(['throttle:global'])->group(function () {
     Route::post('/cours/subscribe/{id}', [CoursController::class, 'subscribe'])->name('cours.subscribe')->middleware('auth')->middleware('is_verified');
     Route::post('/cours/unsubscribe/{id}', [CoursController::class, 'unsubscribe'])->name('cours.unsubscribe')->middleware('auth')->middleware('is_verified');
     Route::get('/cours/list', [CoursController::class, 'list'])->name('cours.list')->middleware('auth')->middleware('is_verified');
+    Route::get('/cours/list/enseignant/{id}', [CoursController::class, 'listbyEnseignant'])->name('cours.list.enseignant')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/cours/create', [CoursController::class, 'create'])->name('cours.create')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/cours/{id}', [CoursController::class, 'index'])->name('cours.index')->middleware('auth')->middleware('is_verified');
     Route::post('/cours', [CoursController::class, 'store'])->name('cours.store')->middleware('auth')->middleware('is_verified')->middleware('is_admin');

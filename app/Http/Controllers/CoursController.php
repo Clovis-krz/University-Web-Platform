@@ -75,7 +75,15 @@ class CoursController extends Controller
     function list()
     {
         $cours = Cours::get();
-        return view('coursList', ['cours' => $cours]);
+        $enseignants = User::where('type', '=', 'enseignant')->get();
+        return view('coursList', ['cours' => $cours, 'enseignants' => $enseignants]);
+    }
+
+    function listbyEnseignant($enseignant)
+    {
+        $cours = Cours::where('user_id', '=', $enseignant)->get();
+        $enseignants = User::where('type', '=', 'enseignant')->get();
+        return view('coursList', ['cours' => $cours, 'enseignants' => $enseignants]);
     }
 
     function search(Request $request)
