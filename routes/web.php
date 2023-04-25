@@ -24,6 +24,9 @@ Route::middleware(['throttle:global'])->group(function () {
 
     //USERS
     Route::get('/user/list', [UserController::class, 'list'])->name('user.list')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
+    Route::post('/user/search', [UserController::class, 'search'])->name('user.search')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
+    Route::get('/user/list/etudiant', [UserController::class, 'listEtudiant'])->name('user.list.student')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
+    Route::get('/user/list/enseignant', [UserController::class, 'listEnseignant'])->name('user.list.teacher')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/user/not-verified', [UserController::class, 'notVerified'])->name('user.notVerified')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/user/{id}', [UserController::class, 'index'])->name('user.index')->middleware('auth')->middleware('is_verified');
     Route::post('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth')->middleware('is_verified');

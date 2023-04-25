@@ -25,6 +25,31 @@ class UserController extends Controller
         return view('userList', ['users' => $users]);
     }
 
+    function search(Request $request)
+    {
+        $validated = $request->validate([
+            'field' => 'string|max:50'
+        ]);
+        $users = User::where('nom','like',"%{$validated['field']}%")
+            ->orWhere('prenom','like',"%{$validated['field']}%")
+            ->orWhere('login','like',"%{$validated['field']}%")->get();
+        return view('userList', ['users' => $users]);
+    }
+
+    function listEtudiant()
+    {
+        $users = User::where('type', '=','etudiant')->get();
+
+        return view('userList', ['users' => $users]);
+    }
+
+    function listEnseignant()
+    {
+        $users = User::where('type', '=','enseignant')->get();
+
+        return view('userList', ['users' => $users]);
+    }
+
     function notVerified()
     {
         $users = User::where('type', '=','null')->get();
