@@ -41,6 +41,7 @@ Route::middleware(['throttle:global'])->group(function () {
     Route::delete('/formation/{id}', [FormationController::class, 'destroy'])->name('formation.destroy')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
 
     //COURS
+    Route::post('/cours/search', [CoursController::class, 'search'])->name('cours.search')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/cours/formation/my', [CoursController::class, 'my_formation'])->name('cours.formation.my')->middleware('auth')->middleware('is_verified');
     Route::get('/cours/iteach', [CoursController::class, 'i_teach'])->name('cours.iteach')->middleware('auth')->middleware('is_verified');
     Route::get('/cours/my', [CoursController::class, 'my'])->name('cours.my')->middleware('auth')->middleware('is_verified');

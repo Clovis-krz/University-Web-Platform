@@ -7,6 +7,11 @@
     @auth
         @if(Auth::user()->type == 'admin')
             <a href="/cours/create"><input type="submit" value="Ajouter"></a><br><br>
+            <form action="{{route('cours.search')}}" method="post">
+                Rechercher par intitulé: <input type="text" name="field" value="{{old('field')}}"><br>
+                <input type="submit" value="Rechercher">
+                @csrf
+            </form>
         @endif
     @endauth
     @unless(empty($cours))

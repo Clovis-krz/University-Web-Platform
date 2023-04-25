@@ -78,6 +78,15 @@ class CoursController extends Controller
         return view('coursList', ['cours' => $cours]);
     }
 
+    function search(Request $request)
+    {
+        $validated = $request->validate([
+            'field' => 'string|max:100'
+        ]);
+        $cours = Cours::where('intitule','like',"%{$validated['field']}%")->get();
+        return view('coursList', ['cours' => $cours]);
+    }
+
     function create()
     {
         $enseignants = User::where('type', '=','enseignant')->get();
