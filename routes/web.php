@@ -23,8 +23,8 @@ Route::get('/', function () {
 
 
 //USERS
-Route::get('/user/list', [UserController::class, 'list'])->name('user.list')->middleware('auth')->middleware('is_verified');
-Route::get('/user/not-verified', [UserController::class, 'notVerified'])->name('user.notVerified')->middleware('auth')->middleware('is_verified');
+Route::get('/user/list', [UserController::class, 'list'])->name('user.list')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
+Route::get('/user/not-verified', [UserController::class, 'notVerified'])->name('user.notVerified')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
 Route::get('/user/{id}', [UserController::class, 'index'])->name('user.index')->middleware('auth')->middleware('is_verified');
 Route::post('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth')->middleware('is_verified');
 Route::delete('/user/{id}', [UserController::class, 'delete'])->name('user.destroy')->middleware('auth')->middleware('is_verified');

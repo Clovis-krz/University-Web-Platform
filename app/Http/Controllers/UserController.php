@@ -14,7 +14,7 @@ class UserController extends Controller
     function index($id)
     {
         $user = User::findOrFail($id);
-
+        $this->authorize('view',$user);
         return view('userIndex', ['user' => $user]);
     }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
     function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);
-
+        $this->authorize('view',$user);
         $validated = $request->validate([
             'nom' => 'string|max:50',
             "prenom"    => "string|max:50",
@@ -43,7 +43,7 @@ class UserController extends Controller
             "type" => "string",
             ]);
 
-        if (Auth::user()->type == "admin") {
+        if (Auth::user()->type == "admin" && isset($validated["type"])) {
             $user->type = $validated["type"];
         }
         if(isset($validated["nom"]))
@@ -65,6 +65,7 @@ class UserController extends Controller
     function delete(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('view',$user);
         $user->delete();
         $request->session()->flash('etat', 'Compte utilisateur supprimé !');
         return redirect()->route('index');
