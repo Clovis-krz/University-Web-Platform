@@ -33,6 +33,14 @@ class User extends Authenticatable
         return $this->belongsTo(Formation::class, 'formation_id');
     }
 
+    public function IsVerified(){
+        return $this->type != 'null';
+    }
+
+    public function IsAdmin(){
+        return $this->type == 'admin';
+    }
+
     protected $attributes = [ 'type' => 'null' ];
 
     /**
