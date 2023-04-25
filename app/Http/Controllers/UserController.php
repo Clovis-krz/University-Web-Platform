@@ -35,7 +35,7 @@ class UserController extends Controller
     function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->authorize('view',$user);
+        $this->authorize('update',$user);
         $validated = $request->validate([
             'nom' => 'string|max:50',
             "prenom"    => "string|max:50",
@@ -65,7 +65,7 @@ class UserController extends Controller
     function delete(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->authorize('view',$user);
+        $this->authorize('delete',$user);
         $user->delete();
         $request->session()->flash('etat', 'Compte utilisateur supprimé !');
         return redirect()->route('index');
