@@ -19,6 +19,7 @@ class PlanningController extends Controller
     function listTeacher()
     {
         $plannings = Planning::get();
+        $this->authorize('viewTeacher', $plannings[0]);
         $return_plannings = []; 
         foreach($plannings as $planning)
         {
@@ -33,6 +34,7 @@ class PlanningController extends Controller
     function listStudent()
     {
         $plannings = Planning::get();
+        $this->authorize('viewStudent', $plannings[0]);
         $courses = Auth::user()->cours()->get();
         $return_plannings = [];
         foreach($plannings as $planning)
@@ -63,6 +65,8 @@ class PlanningController extends Controller
 
     function createTeacher()
     {
+        $planning = new Planning();
+        $this->authorize('create', $planning);
         $cours = Auth::user()->enseigne()->get();
         return view('planningForm', ['cours' => $cours]);
     }
@@ -70,6 +74,7 @@ class PlanningController extends Controller
     function editTeacher($id)
     {
         $planning = Planning::findOrFail($id);
+        $this->authorize('update', $planning);
         $cours = Auth::user()->enseigne()->get();
         return view('planningIndex', ['planning' => $planning, 'cours' => $cours]);
     }
@@ -82,6 +87,7 @@ class PlanningController extends Controller
             "date_fin" => "required|date|after:date_debut"
         ]);
         $planning = new Planning();
+        $this->authorize('create', $planning);
         $planning->cours_id = $validated['cours_id'];
         $planning->date_debut = $validated['date_debut'];
         $planning->date_fin = $validated['date_fin'];
@@ -112,6 +118,7 @@ class PlanningController extends Controller
             "date_fin" => "date"
         ]);
         $planning = Planning::findOrFail($id);
+        $this->authorize('update', $planning);
         if(isset($validated['cours_id']))
         {
             $planning->cours_id = $validated['cours_id'];
@@ -146,6 +153,7 @@ class PlanningController extends Controller
     function destroy(Request $request, $id)
     {
         $planning = Planning::findOrFail($id);
+        $this->authorize('delete', $planning);
         $planning->delete();
 
         $request->session()->flash('etat', 'Séance de cours supprimé !');
