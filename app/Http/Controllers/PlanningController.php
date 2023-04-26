@@ -13,12 +13,14 @@ class PlanningController extends Controller
     function list()
     {
         $plannings = Planning::get();
-        return view('planningList', ['plannings' => $plannings]);
+        $cours = Cours::get();
+        return view('planningList', ['plannings' => $plannings, 'cours' => $cours]);
     }
 
     function listTeacher()
     {
         $plannings = Planning::get();
+        $cours = Auth::user()->enseigne()->get();
         $this->authorize('viewTeacher', $plannings[0]);
         $return_plannings = []; 
         foreach($plannings as $planning)
@@ -28,7 +30,23 @@ class PlanningController extends Controller
                 array_push($return_plannings, $planning);
             }
         }
-        return view('planningList', ['plannings' => $return_plannings]);
+        return view('planningList', ['plannings' => $return_plannings, 'cours' => $cours]);
+    }
+
+    function listTeacherByCourse($id)
+    {
+        $plannings = Planning::get();
+        $cours = Auth::user()->enseigne()->get();
+        $this->authorize('viewTeacher', $plannings[0]);
+        $return_plannings = []; 
+        foreach($plannings as $planning)
+        {
+            if($planning->cours->user_id == Auth::user()->id && $planning->cours_id == $id)
+            {
+                array_push($return_plannings, $planning);
+            }
+        }
+        return view('planningList', ['plannings' => $return_plannings, 'cours' => $cours]);
     }
 
     function listStudent()
@@ -47,7 +65,26 @@ class PlanningController extends Controller
                 }
             }
         }
-        return view('planningList', ['plannings' => $return_plannings]);
+        return view('planningList', ['plannings' => $return_plannings, 'cours' => $courses]);
+    }
+
+    function listStudentByCourse($id)
+    {
+        $plannings = Planning::get();
+        $this->authorize('viewStudent', $plannings[0]);
+        $courses = Auth::user()->cours()->get();
+        $return_plannings = [];
+        foreach($plannings as $planning)
+        {
+            foreach($courses as $course)
+            {
+                if($course->id == $planning->cours_id && $planning->cours_id == $id)
+                {
+                    array_push($return_plannings, $planning);
+                }
+            }
+        }
+        return view('planningList', ['plannings' => $return_plannings, 'cours' => $courses]);
     }
     
     function createAdmin()

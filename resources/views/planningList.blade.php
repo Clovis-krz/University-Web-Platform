@@ -12,6 +12,30 @@
             <a href="/planning/create/teacher"><input type="submit" value="Ajouter"></a><br><br>
         @endif
     @endauth
+    @unless(empty($cours))
+        @auth
+            @if(Auth::user()->type != 'admin')
+                <h4>Filtrer par cours :</h4>
+                @foreach($cours as $cour)
+                    @if(Auth::user()->type == 'enseignant')
+                        <a href="{{ route('planning.list.teacher.course', $cour->id) }}"role="button">{{$cour->intitule}}</a>
+                    @endif
+                    @if(Auth::user()->type == 'etudiant')
+                        <a href="{{ route('planning.list.student.course', $cour->id) }}"role="button">{{$cour->intitule}}</a>
+                    @endif
+                <br>
+                @endforeach
+                @if(Auth::user()->type == 'enseignant')
+                    <a href="{{ route('planning.list.teacher')}}"role="button">Tous</a>
+                @endif
+                @if(Auth::user()->type == 'etudiant')
+                    <a href="{{ route('planning.list.student')}}"role="button">Tous</a>
+                @endif
+                <br>
+                <br>
+            @endif
+        @endauth
+    @endunless
     @unless(empty($plannings))
             @foreach ($plannings as $planning)
                 <tr>
