@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\FormationController;
+use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\AuthenticatedSessionController;
 
 /*
@@ -54,6 +55,18 @@ Route::middleware(['throttle:global'])->group(function () {
     Route::post('/cours', [CoursController::class, 'store'])->name('cours.store')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::put('/cours/{id}', [CoursController::class, 'update'])->name('cours.update')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::delete('/cours/{id}', [CoursController::class, 'destroy'])->name('cours.destroy')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
+
+    //PLANNING
+    Route::get('/planning/list', [PlanningController::class, 'list'])->name('planning.list')->middleware('auth')->middleware('is_verified');
+    Route::get('/planning/list/teacher', [PlanningController::class, 'listTeacher'])->name('planning.list.teacher')->middleware('auth')->middleware('is_verified');
+    Route::get('/planning/list/student', [PlanningController::class, 'listStudent'])->name('planning.list.student')->middleware('auth')->middleware('is_verified');
+    Route::get('/planning/create/admin', [PlanningController::class, 'createAdmin'])->name('planning.create.admin')->middleware('auth')->middleware('is_verified');
+    Route::get('/planning/create/teacher', [PlanningController::class, 'createTeacher'])->name('planning.create.teacher')->middleware('auth')->middleware('is_verified');
+    Route::get('/planning/edit/admin/{id}', [PlanningController::class, 'editAdmin'])->name('planning.edit.admin')->middleware('auth')->middleware('is_verified');
+    Route::get('/planning/edit/teacher/{id}', [PlanningController::class, 'editTeacher'])->name('planning.edit.teacher')->middleware('auth')->middleware('is_verified');
+    Route::post('/planning', [PlanningController::class, 'store'])->name('planning.store')->middleware('auth')->middleware('is_verified');
+    Route::put('/planning/{id}', [PlanningController::class, 'update'])->name('planning.update')->middleware('auth')->middleware('is_verified');
+    Route::delete('/planning/{id}', [PlanningController::class, 'destroy'])->name('planning.destroy')->middleware('auth')->middleware('is_verified');
 });
 
 //AUTHENTIFICATION
