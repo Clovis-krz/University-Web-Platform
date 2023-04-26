@@ -49,6 +49,22 @@ class PlanningController extends Controller
         return view('planningList', ['plannings' => $return_plannings, 'cours' => $cours]);
     }
 
+    function listTeacherByWeek(Request $request)
+    {
+        $plannings = Planning::get();
+        $cours = Auth::user()->enseigne()->get();
+        $this->authorize('viewTeacher', $plannings[0]);
+        $return_plannings = []; 
+        foreach($plannings as $planning)
+        {
+            if($planning->cours->user_id == Auth::user()->id && date('Y', strtotime($planning->date_debut))."-W".date('W',strtotime($planning->date_debut)) == $request->week)
+            {
+                array_push($return_plannings, $planning);
+            }
+        }
+        return view('planningList', ['plannings' => $return_plannings, 'cours' => $cours]);
+    }
+
     function listStudent()
     {
         $plannings = Planning::get();
@@ -79,6 +95,25 @@ class PlanningController extends Controller
             foreach($courses as $course)
             {
                 if($course->id == $planning->cours_id && $planning->cours_id == $id)
+                {
+                    array_push($return_plannings, $planning);
+                }
+            }
+        }
+        return view('planningList', ['plannings' => $return_plannings, 'cours' => $courses]);
+    }
+
+    function listStudentByWeek(Request $request)
+    {
+        $plannings = Planning::get();
+        $this->authorize('viewStudent', $plannings[0]);
+        $courses = Auth::user()->cours()->get();
+        $return_plannings = [];
+        foreach($plannings as $planning)
+        {
+            foreach($courses as $course)
+            {
+                if($course->id == $planning->cours_id && date('Y', strtotime($planning->date_debut))."-W".date('W',strtotime($planning->date_debut)) == $request->week)
                 {
                     array_push($return_plannings, $planning);
                 }

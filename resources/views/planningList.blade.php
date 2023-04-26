@@ -31,6 +31,21 @@
                 @if(Auth::user()->type == 'etudiant')
                     <a href="{{ route('planning.list.student')}}"role="button">Tous</a>
                 @endif
+                <h4>Filtrer par semaine :</h4>
+                @if(Auth::user()->type == 'etudiant')
+                    <form action="{{route('planning.list.student.week')}}" method="post">
+                        <input id="week" type="week" name="week" />
+                        <input type="submit" value="Rechercher">
+                        @csrf
+                    </form>
+                @endif
+                @if(Auth::user()->type == 'enseignant')
+                    <form action="{{route('planning.list.teacher.week')}}" method="post">
+                        <input id="week" type="week" name="week" />
+                        <input type="submit" value="Rechercher">
+                        @csrf
+                    </form>
+                @endif
                 <br>
                 <br>
             @endif

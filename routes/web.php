@@ -60,8 +60,10 @@ Route::middleware(['throttle:global'])->group(function () {
     Route::get('/planning/list', [PlanningController::class, 'list'])->name('planning.list')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/planning/list/teacher', [PlanningController::class, 'listTeacher'])->name('planning.list.teacher')->middleware('auth')->middleware('is_verified');
     Route::get('/planning/list/teacher/course/{id}', [PlanningController::class, 'listTeacherByCourse'])->name('planning.list.teacher.course')->middleware('auth')->middleware('is_verified');
+    Route::post('/planning/list/teacher/week', [PlanningController::class, 'listTeacherByWeek'])->name('planning.list.teacher.week')->middleware('auth')->middleware('is_verified');
     Route::get('/planning/list/student', [PlanningController::class, 'listStudent'])->name('planning.list.student')->middleware('auth')->middleware('is_verified');
     Route::get('/planning/list/student/course/{id}', [PlanningController::class, 'listStudentByCourse'])->name('planning.list.student.course')->middleware('auth')->middleware('is_verified');
+    Route::post('/planning/list/student/week', [PlanningController::class, 'listStudentByWeek'])->name('planning.list.student.week')->middleware('auth')->middleware('is_verified');
     Route::get('/planning/create/admin', [PlanningController::class, 'createAdmin'])->name('planning.create.admin')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/planning/create/teacher', [PlanningController::class, 'createTeacher'])->name('planning.create.teacher')->middleware('auth')->middleware('is_verified');
     Route::get('/planning/edit/admin/{id}', [PlanningController::class, 'editAdmin'])->name('planning.edit.admin')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
