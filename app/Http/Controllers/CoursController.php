@@ -38,7 +38,7 @@ class CoursController extends Controller
     {
         $user = Auth::user();
         $courses = Cours::get();
-        $this->authorize('subscriptionlist', $courses[0]);
+        //$this->authorize('subscriptionlist', $courses[0]);
         $my_courses = null;
         foreach($courses as $course){
             foreach($course->user as $c_user)
@@ -59,7 +59,7 @@ class CoursController extends Controller
         $user = Auth::user();
         
         $cours = Cours::where('formation_id', '=', $user->formation_id)->get();
-        $this->authorize('myformationlist', $cours[0]);
+        //$this->authorize('myformationlist', $cours[0]);
         return view('coursList', ['cours' => $cours]);
     }
 
@@ -68,7 +68,7 @@ class CoursController extends Controller
     {
         $user = Auth::user();
         $cours = Cours::where('user_id', '=', $user->id)->get();
-        $this->authorize('iteach', $cours[0]);
+        //$this->authorize('iteach', $cours[0]);
         return view('coursList', ['cours' => $cours]);
     }
 

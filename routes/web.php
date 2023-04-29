@@ -29,7 +29,7 @@ Route::middleware(['throttle:global'])->group(function () {
     Route::get('/user/list/etudiant', [UserController::class, 'listEtudiant'])->name('user.list.student')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/user/list/enseignant', [UserController::class, 'listEnseignant'])->name('user.list.teacher')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
     Route::get('/user/not-verified', [UserController::class, 'notVerified'])->name('user.notVerified')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
-    Route::get('/user/{id}', [UserController::class, 'index'])->name('user.index')->middleware('auth')->middleware('is_verified');
+    Route::get('/user/{id}', [UserController::class, 'index'])->name('user.index')->middleware('auth');
     Route::post('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth')->middleware('is_verified');
     Route::delete('/user/{id}', [UserController::class, 'delete'])->name('user.destroy')->middleware('auth')->middleware('is_verified');
 
@@ -43,9 +43,9 @@ Route::middleware(['throttle:global'])->group(function () {
 
     //COURS
     Route::post('/cours/search', [CoursController::class, 'search'])->name('cours.search')->middleware('auth')->middleware('is_verified')->middleware('is_admin');
-    Route::get('/cours/formation/my', [CoursController::class, 'my_formation'])->name('cours.formation.my')->middleware('auth')->middleware('is_verified');
-    Route::get('/cours/iteach', [CoursController::class, 'i_teach'])->name('cours.iteach')->middleware('auth')->middleware('is_verified');
-    Route::get('/cours/my', [CoursController::class, 'my'])->name('cours.my')->middleware('auth')->middleware('is_verified');
+    Route::get('/cours/formation/my', [CoursController::class, 'my_formation'])->name('cours.formation.my')->middleware('auth')->middleware('is_verified')->middleware('is_student');
+    Route::get('/cours/iteach', [CoursController::class, 'i_teach'])->name('cours.iteach')->middleware('auth')->middleware('is_verified')->middleware('is_teacher');
+    Route::get('/cours/my', [CoursController::class, 'my'])->name('cours.my')->middleware('auth')->middleware('is_verified')->middleware('is_student');
     Route::post('/cours/subscribe/{id}', [CoursController::class, 'subscribe'])->name('cours.subscribe')->middleware('auth')->middleware('is_verified');
     Route::post('/cours/unsubscribe/{id}', [CoursController::class, 'unsubscribe'])->name('cours.unsubscribe')->middleware('auth')->middleware('is_verified');
     Route::get('/cours/list', [CoursController::class, 'list'])->name('cours.list')->middleware('auth')->middleware('is_verified');

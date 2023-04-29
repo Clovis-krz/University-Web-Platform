@@ -41,6 +41,14 @@ class User extends Authenticatable
         return $this->type == 'admin';
     }
 
+    public function IsStudent(){
+        return $this->type == 'etudiant';
+    }
+
+    public function IsTeacher(){
+        return $this->type == 'enseignant';
+    }
+
     protected $attributes = [ 'type' => 'null' ];
 
     /**
